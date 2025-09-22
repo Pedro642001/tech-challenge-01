@@ -10,35 +10,57 @@
 
 
 ### 💡 Sobre
+
 Descrição sobre o projeto
 
 ### 📋 Pré-requisitos
-**Dependência 1:** 
+- [Pyenv - gerenciador de versões Python](https://github.com/pyenv/pyenv)
+- [Poetry - gerenciador dependências Python](https://python-poetry.org/docs)
 
-O comando abaixo é responsável por realizar...
 
-```bash 
-    exemplo de comando de para instalação do projeto
-```
 
 ### 🔧 Instalação e Configuração do projeto
 
-**Dependência 2:** 
-O comando abaixo é responsável por realizar...
+**Instalação da versão do Python** 
+
+O comando abaixo é responsável por realizar a instalação da versão do Python utilizada no projeto:
 
 ```bash 
-    exemplo de comando de para configuração do projeto
+   pyenv install $(cat .python-version)
+```
+
+**Instalação das dependências do projeto:** 
+
+Esse comando irá realizar a instalação de todas as dependências para rodar o projeto, como `uvicorn`, `fastApi`, entre outras:
+
+```
+    poetry install
+```
+
+**Execução do projeto em ambiente de desenvolvimento:** 
+
+O comando abaixo é responsável por realizar a execução da aplicação em ambiente de desenvolvimento:
+
+```bash 
+    poetry run uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
 ```
 
 ### 📔 Documentação das rotas
-Aqui terá o link e prints da documentação das rotas
+Localmente é possível realizar o acesso a documentação das rotas através do seguinte link:
+
+```
+http://localhost:8000/redoc
+```
+
+![Swagger API Documentation](doc/resources/images/swagger.png)
 
 ### 📂 Estrutura do projeto
 
 ``` bash
 📦 main
- ┣ 📂 api
+ ┣ 📂 app
  ┣ 📂 data
+ ┣ 📂 doc
  ┗ 📂 scripts
 ```
 
