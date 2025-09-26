@@ -4,3 +4,6 @@ __pycache__/
 .env
 *.db
 poetry.lock
+.build
+.DS_Store
+*.spec
