@@ -29,7 +29,9 @@ if __name__ == "__main__":
 
     
     dao = LivroDAO()
-    rows = dao.listar_livros()
-    for row in rows:
-        print(row)
+    if dao.verificar_conexao():
+        print("Conexão com o banco de dados verificada com sucesso.")
+        rows = dao.listar_livros()
+        for row in rows:
+            print(row)
   

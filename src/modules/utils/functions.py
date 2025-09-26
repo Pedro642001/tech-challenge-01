@@ -50,12 +50,16 @@ def obterObjetos(url: str, tipo: str) -> list:
         elif tipo == "L":
             # pegar todos os livros
             lista = soup.find_all("article", class_="product_pod")
+        elif tipo == "D":
+            # pegar os detalhes do livro
+            lista = soup.find_all("table", class_="table table-striped")
         else:
             lista = []
+            
 
     return lista
 
-def obterTotalPaginasCategoria(urlcateg: str) -> int:
+def obterTotal(urlcateg: str, tipo: str) -> int:
     """
     Obtém o total de páginas de uma categoria a partir da URL da categoria.
     :param urlcateg: URL da categoria para obter o total de páginas.
@@ -73,9 +77,13 @@ def obterTotalPaginasCategoria(urlcateg: str) -> int:
         print(f"Erro ao obter informações da URL: {e}")
         total = 0
     finally:
-        # calcula o total de páginas 
-        if total != 0:
-            paginas = (int(total)//20)+1
+        if tipo == "P": # calcula o total de páginas 
+            if total != 0:
+                retorno = (int(total)//20)+1
+            else:
+                retorno = 0
         else:
-            paginas = 0
-    return paginas
+            if tipo == "L":
+                retorno = int(total)
+
+    return retorno
