@@ -59,11 +59,6 @@ path\to\venv\Scripts\activate.bat
 # macOS / Linux
 source path/to/venv/bin/activate
 ```
-
-Você verá algo assim no terminal:
-```
-(venv) $
-```
 ---
 
 ### 2.3. Instalar as dependências
@@ -72,6 +67,10 @@ Com o ambiente virtual ativado, instale as bibliotecas necessárias:
 ```bash
 pip install requests 
 pip install beautifulsoup4
+pip install flask
+pip install flask_jwt_extended
+pip install flask_bcrypt
+pip install flask_sqlalchemy
 ```
 ---
 
