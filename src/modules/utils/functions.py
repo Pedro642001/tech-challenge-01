@@ -28,6 +28,10 @@ def trataPreco(price: str) -> float:
 
     return texto
 
+def trataDisponibilidade(texto)->int:
+    numeros = re.findall(r'\d+', texto)  # Encontra todos os grupos de dígitos
+    return [int(num) for num in numeros]
+
 def obterObjetos(url: str, tipo: str) -> list:
     """
     Extrai lista de um objeto BeautifulSoup.
@@ -52,7 +56,8 @@ def obterObjetos(url: str, tipo: str) -> list:
             lista = soup.find_all("article", class_="product_pod")
         elif tipo == "D":
             # pegar os detalhes do livro
-            lista = soup.find_all("table", class_="table table-striped")
+            specific_table = soup.find("table", class_="table table-striped")
+            lista = specific_table
         else:
             lista = []
             

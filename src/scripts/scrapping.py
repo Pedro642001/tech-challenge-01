@@ -14,7 +14,7 @@ import os
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from modules.utils.livro_dao import LivroDAO
-from modules.utils.functions import trataTitulo, trataPreco, obterObjetos, obterTotal
+from modules.utils.functions import trataTitulo, trataPreco, obterObjetos, obterTotal, trataDisponibilidade
 from config.variables import Config
 
 class Scrapping:
@@ -35,7 +35,7 @@ class Scrapping:
         dados = []
 
         # para cada categoria, pegar os livros
-        for categoria in categorias[1:3]:
+        for categoria in categorias[1:2]:
 
             # ignorar a categoria "Books", que é a categoria geral
             if categoria.text.strip() != "Books":
@@ -76,8 +76,15 @@ class Scrapping:
                         
                         print(f"Importando livro: {titulo}, {self.contador} de {qtdelivros} ")
                         urllivro = livro.a["href"].replace("../../../", urlb + "catalogue/") # url do livro
-                        detalheslivro = obterObjetos(urllivro, "D") # obtem os detalhes do livro
-                        upc = detalheslivro[0].find("td").text # obtem o UPC do livro
+                        tabeladetalheslivro = obterObjetos(urllivro, "D") # obtem os detalhes do livro
+                        all_tds = tabeladetalheslivro.find_all('td')
+                        i = 0
+                        for detalhe in all_tds:
+                            i = i + 1
+                            if i == 1: #upc
+                                upc = detalhe.text # obtem o UPC do livro
+                            elif i == 6: #availability
+                                disponibilidade = trataDisponibilidade(detalhe.text)[0] # obtem a disponibilidade do livro
                         
                         self.contador = self.contador + 1
 

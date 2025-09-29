@@ -9,7 +9,7 @@ Ele foi organizado em três arquivos principais:
 - `livro_dao.py`: Responsável por interações com armazenamento/manipulação dos dados (ex: SQLite).
 - `scrapping.py`: Script principal para executar o web scraping.
 
-Você tem duas opções para rodar o script para baixa dos dados de livros. Pode baixar o projeto, abrindo no vscode, configurando o ambiente (conforme tutorial abaixo) ou abrir o executável scrapping.pkg localizado no diretório "dist". 
+O repositório onde o código está disponibilizado encontra-se no github.
 
 repositório no git: https://github.com/Pedro642001/tech-challenge-01
 ---
@@ -90,24 +90,138 @@ python3 scrapping.py
 
 ---
 
-## 4. Estrutura do Projeto
-
-```
-📂 tech-challenge-01/
-> api
-> buid
-> dados
-  > banco
-    ┣ 📜 book.db           # BD com os livros extraidos
-> dist 
-    ┣ 📜 scrapping.pkg     # Executável que baixa os dados para a base 
-> doc
-> src
-   > modules
-   > scripts
- ┗ 📜 README.md            # Documentação do projeto
-```
+## 4. Como testar usando o Postman
+Boa! 🚀 O **Postman** é uma das formas mais práticas de testar APIs JWT. Vou te mostrar o passo a passo para testar o seu app Flask que criamos:
 
 ---
+
+## 🔹 1. Preparar ambiente
+
+* Abra o **Postman** (desktop ou versão web).
+* Crie uma **Collection** chamada `API Flask JWT`.
+* Dentro dela, crie as requisições que vamos usar.
+
+---
+
+## 🔹 2. Criar usuário (`/register`)
+
+1. Clique em **New Request** → nomeie `Register`.
+2. Método: `POST`
+   URL: `http://127.0.0.1:5000/register`
+3. Aba **Body** → escolha **raw** → **JSON**.
+4. Insira:
+
+   ```json
+   {
+     "username": "alice",
+     "password": "senha123",
+     "role": "admin"
+   }
+   ```
+5. Clique em **Send**.
+   → Deve retornar `{"msg": "usuário criado com sucesso"}`.
+
+---
+
+## 🔹 3. Login (`/login`)
+
+1. Nova request: `Login`.
+2. Método: `POST`
+   URL: `http://127.0.0.1:5000/login`
+3. Aba **Body → raw → JSON**:
+
+   ```json
+   {
+     "username": "alice",
+     "password": "senha123"
+   }
+   ```
+4. Clique em **Send**.
+   → Vai retornar algo assim:
+
+   ```json
+   {
+     "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6...",
+     "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6..."
+   }
+   ```
+
+⚡ Copie o valor de `access_token`.
+
+---
+
+## 🔹 4. Acessar rota protegida (`/profile`)
+
+1. Nova request: `Profile`.
+2. Método: `GET`
+   URL: `http://127.0.0.1:5000/profile`
+3. Aba **Headers** → adicione:
+
+   ```
+   Key: Authorization
+   Value: Bearer SEU_ACCESS_TOKEN
+   ```
+4. Clique em **Send**.
+   → Deve retornar:
+
+   ```json
+   {"msg": "Olá, alice. Esta é sua profile."}
+   ```
+
+---
+
+## 🔹 5. Testar refresh token (`/refresh`)
+
+1. Nova request: `Refresh`.
+2. Método: `POST`
+   URL: `http://127.0.0.1:5000/refresh`
+3. Aba **Headers** → adicione:
+
+   ```
+   Key: Authorization
+   Value: Bearer SEU_REFRESH_TOKEN
+   ```
+4. Clique em **Send**.
+   → Deve retornar um novo `access_token`.
+
+---
+
+## 🔹 6. Logout (`/logout`)
+
+1. Nova request: `Logout`.
+2. Método: `DELETE`
+   URL: `http://127.0.0.1:5000/logout`
+3. Aba **Headers** → adicione:
+
+   ```
+   Key: Authorization
+   Value: Bearer SEU_ACCESS_TOKEN
+   ```
+4. Clique em **Send**.
+   → Deve retornar:
+
+   ```json
+   {"msg": "token revogado (logout) com sucesso"}
+   ```
+
+Se tentar usar o mesmo token de novo em `/profile`, vai dar erro **401 (Token has been revoked)** ✅
+
+---
+
+## 🔹 7. Dica extra: usar **Variables** no Postman
+
+Em vez de copiar/colar o token toda hora, você pode:
+
+1. Salvar o `access_token` da resposta do login em uma **variable** chamada `{{access_token}}`.
+2. Configurar o header `Authorization` como:
+
+   ```
+   Bearer {{access_token}}
+   ```
+
+Assim o Postman atualiza automaticamente depois do login.
+
+---
+
 
 

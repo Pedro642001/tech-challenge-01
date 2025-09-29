@@ -75,7 +75,7 @@ class LivroDAO:
                             upc TEXT PRIMARY KEY,
                             titulo TEXT,
                             preco REAL,
-                            disponibilidade TEXT,
+                            disponibilidade INTEGER,
                             rating TEXT,
                             categoria TEXT,
                             imagem TEXT 
