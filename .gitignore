@@ -7,8 +7,6 @@ poetry.lock
 .build
 .DS_Store
 *.spec
-requirements.txt
-Procfile
 instance/
 .pytest_cache/
 htmlcov/
