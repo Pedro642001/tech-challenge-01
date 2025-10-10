@@ -96,10 +96,6 @@ class WebScrapingService:
 
             await self.bookService.bulk_create_books(books)
 
-            with open("scraped_books.log", "a") as log_file:
-                for book in books:
-                    log_file.write(f"{book.title}-{book.url}\n")
-
     def _get_book_urls(self, html: BeautifulSoup) -> list[str]:
         articles = html.find_all("article", class_="product_pod")
         return [HttpManager.format_book_url(self.base_url, a.h3.a["href"]) for a in articles]
