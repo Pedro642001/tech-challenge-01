@@ -48,10 +48,6 @@ class AuthService:
         try:
             payload = jwt.decode(token, settings.SECRET_KEY, algorithms=[settings.ALGORITHM])
             return payload.get("sub")
-        except jwt.ExpiredSignatureError:
-            raise HTTPException(detail="Não autorizado", status_code=401)
-        except jwt.InvalidTokenError:
-            raise HTTPException(detail="Não autorizado", status_code=401)
         except Exception:
             raise HTTPException(detail="Não autorizado", status_code=401)
 
@@ -61,10 +57,6 @@ class AuthService:
             if payload.get("type") != "refresh":
                 raise HTTPException(detail="Não autorizado", status_code=401)
             return payload.get("sub")
-        except jwt.ExpiredSignatureError:
-            raise HTTPException(detail="Não autorizado", status_code=401)
-        except jwt.InvalidTokenError:
-            raise HTTPException(detail="Não autorizado", status_code=401)
         except Exception:
             raise HTTPException(detail="Não autorizado", status_code=401)
 
