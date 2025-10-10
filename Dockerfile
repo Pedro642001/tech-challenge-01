@@ -7,7 +7,7 @@ RUN pip install --no-cache-dir poetry==2.2.1
 WORKDIR /code
 
 # Copia os arquivos de dependências
-COPY pyproject.toml poetry.lock ./
+COPY pyproject.toml ./
 
 # Instala as dependências do projeto
 RUN poetry install --without dev --no-root --no-interaction --no-ansi
