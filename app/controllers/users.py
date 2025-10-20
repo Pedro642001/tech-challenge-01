@@ -15,7 +15,7 @@ router = APIRouter(prefix="/users")
     response_model=None,
 )
 async def create_user(user: CreateUserDto, userService: UserService = Depends()):
-    userService.create(user)
+    await userService.create(user)
     pass
 
 
