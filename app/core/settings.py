@@ -5,6 +5,14 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 DOT_ENV = os.path.join(os.path.dirname(__file__), "../../.env")
 
+_model_config = SettingsConfigDict(
+    env_file_encoding="utf-8",
+    extra="ignore",
+)
+
+if os.path.exists(DOT_ENV):
+    _model_config["env_file"] = DOT_ENV
+
 
 class Settings(BaseSettings):
     APP_NAME: str = Field(..., env="APP_NAME")
@@ -23,10 +31,7 @@ class Settings(BaseSettings):
 
     REFRESH_TOKEN_EXPIRE_DAYS: int = Field(1, env="REFRESH_TOKEN_EXPIRE_DAYS")
 
-    model_config = SettingsConfigDict(
-        env_file=DOT_ENV,
-        env_file_encoding="utf-8",
-    )
+    model_config = _model_config
 
 
 settings = Settings()
