@@ -9,6 +9,8 @@ WORKDIR /code
 # Copia os arquivos de dependências
 COPY pyproject.toml ./
 
+RUN poetry config virtualenvs.create false
+
 # Instala as dependências do projeto
 RUN poetry install --without dev --no-root --no-interaction --no-ansi
 
