@@ -7,7 +7,7 @@ services:
     volumes:
       - .:/app
     ports:
-      - "3000:8000"
+      - "3000:8080"
     environment:
       DATABASE_URL: postgres://postgres:postgres@db:5432/web_scrapping
       APP_NAME: "Tech Challenge 01"
@@ -17,6 +17,7 @@ services:
       ACCESS_TOKEN_EXPIRE_MINUTES: 120
       REFRESH_TOKEN_EXPIRE_DAYS: 30
       ALGORITHM: HS256
+      PORT: 8080
   db:
     image: postgres:16
     container_name: db_postgres
