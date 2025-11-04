@@ -15,8 +15,8 @@ RUN poetry install --without dev --no-root --no-interaction --no-ansi
 # Copia o código da aplicação
 COPY ./app ./app
 
-# Observa a porta que a aplicação irá rodar
-EXPOSE 8000
+# Observa a porta que a aplicação irá rodar (Heroku usa 8080)
+EXPOSE 8080
 
 # Comando padrão
-CMD ["poetry", "run", "uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["poetry", "run", "uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "${PORT:-8080}"]
