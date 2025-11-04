@@ -1,3 +1,5 @@
+from fastapi import HTTPException
+
 from app.dtos.create_user_dto import CreateUserDto
 from app.models.user import User
 from app.services.auth_service import AuthService
@@ -12,7 +14,10 @@ class UserService:
         userExists = await User.filter(email=user.email).count() > 0
 
         if userExists:
-            raise Exception("User already exists")
+            raise HTTPException(
+                status_code=400,
+                detail="Não foi possível processar os dados informados. Verifique e tente novamente.",
+            )
 
         user.password = self.auth_service.generate_password_hash(user.password)
 

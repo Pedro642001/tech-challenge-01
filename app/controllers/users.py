@@ -16,6 +16,7 @@ router = APIRouter(prefix="/users")
 )
 async def create_user(user: CreateUserDto, userService: UserService = Depends()):
     await userService.create(user)
+    return {"message": "Usuário criado com sucesso"}
     pass
 
 

@@ -52,6 +52,9 @@ class MachineLearningService:
     def predict(self, features: dict):
         if not self.model:
             raise ValueError("Modelo não treinado.")
+
         X = np.array([[features["rating"]]])
+
         prediction = self.model.predict(X)[0]
+
         return {"predicted_price": round(prediction, 2)}
