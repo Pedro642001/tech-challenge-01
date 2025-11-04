@@ -75,14 +75,21 @@ http://localhost:8000/docs
 
 ### 📐 Arquitetura do projeto
 
-Segurança
+![Swagger API Documentation](doc/resources/images/architecture.jpeg)
+
+### Segurança
 A API exige apresentação de token fornecido no momento da autenticação via usuário e senha através da rota "api/v1/trigger/auth/login". As rotas "/api/v1/users" fornecem opções para gerenciamento de usuários da API.
 
-Ingestão de dados
+### Ingestão de dados
 A rota "api/v1/trigger" coleta o site "https://books.toscrape.com/", organiza em livros e categorias e persiste o dado no PostgreSQL.
 
-Machine Learning
+### Machine Learning
 As rotas "/api/v1/ml" acionam o aprendizado de maquina para criação dos modelos baseado nos dados persistidos no banco.
 
-Analytcs
+### Analytcs
 As rotas "/api/v1/categories", "/api/v1/stats", "api/v1/categories" e "api/v1/books" fornecem relatórios sobre os dados coletados e os modelos de IA gerados.
+
+
+### 📐 Modelo de dados
+
+![Arquitetura dos dados da aplicação](doc/resources/images/data-architecture.png)
