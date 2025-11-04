@@ -8,16 +8,13 @@
 - [Estrutura do projeto](#-estrutura-do-projeto)
 - [Arquitetura](#-arquitetura-do-projeto)
 
-
 ### 💡 Sobre
 
-Descrição sobre o projeto
+Projeto com objetivo educacional. Coleta pro raspagem de site fictício de vendas de livros para composição de base de dados para análise e predição.
 
 ### 📋 Pré-requisitos
 - [Pyenv - gerenciador de versões Python](https://github.com/pyenv/pyenv)
 - [Poetry - gerenciador dependências Python](https://python-poetry.org/docs)
-
-
 
 ### 🔧 Instalação e Configuração do projeto
 
@@ -27,6 +24,14 @@ O comando abaixo é responsável por realizar a instalação da versão do Pytho
 
 ```bash 
    pyenv install $(cat .python-version)
+```
+
+**Instalação do Poetry** 
+
+O comando abaixo é responsável por realizar a instalação do Poetry no projeto:
+
+```bash 
+   pip install poetry
 ```
 
 **Instalação das dependências do projeto:** 
@@ -42,14 +47,14 @@ Esse comando irá realizar a instalação de todas as dependências para rodar o
 O comando abaixo é responsável por realizar a execução da aplicação em ambiente de desenvolvimento:
 
 ```bash 
-    poetry run uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
+    fastapi run app/main.py --reload  
 ```
 
 ### 📔 Documentação das rotas
 Localmente é possível realizar o acesso a documentação das rotas através do seguinte link:
 
 ```
-http://localhost:8000/redoc
+http://localhost:8000/docs
 ```
 
 ![Swagger API Documentation](doc/resources/images/swagger.png)
@@ -58,12 +63,26 @@ http://localhost:8000/redoc
 
 ``` bash
 📦 main
- ┣ 📂 app
- ┣ 📂 data
- ┣ 📂 doc
- ┗ 📂 scripts
+ ┗ 📂 app
+    ┣ controllers
+    ┣ core
+    ┣ data
+    ┣ dtos
+    ┣ models
+    ┣ services
+    ┗ utils
 ```
 
 ### 📐 Arquitetura do projeto
 
-Aqui será descrito como será a estrutura de comunicação, passagem de dados, segurança, entre outros
+Segurança
+A API exige apresentação de token fornecido no momento da autenticação via usuário e senha através da rota "api/v1/trigger/auth/login". As rotas "/api/v1/users" fornecem opções para gerenciamento de usuários da API.
+
+Ingestão de dados
+A rota "api/v1/trigger" coleta o site "https://books.toscrape.com/", organiza em livros e categorias e persiste o dado no PostgreSQL.
+
+Machine Learning
+As rotas "/api/v1/ml" acionam o aprendizado de maquina para criação dos modelos baseado nos dados persistidos no banco.
+
+Analytcs
+As rotas "/api/v1/categories", "/api/v1/stats", "api/v1/categories" e "api/v1/books" fornecem relatórios sobre os dados coletados e os modelos de IA gerados.

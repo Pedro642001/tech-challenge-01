@@ -1,6 +1,7 @@
 import joblib
 import numpy as np
 
+from app.dtos.ml import PredictionInputDto
 from app.models.book import Book
 
 
@@ -49,11 +50,11 @@ class MachineLearningService:
 
         return {"message": "Modelo treinado e salvo com sucesso."}
 
-    def predict(self, features: dict):
+    def predict(self, features: PredictionInputDto):
         if not self.model:
             raise ValueError("Modelo não treinado.")
 
-        X = np.array([[features["rating"]]])
+        X = np.array([[features.rating]])
 
         prediction = self.model.predict(X)[0]
 
