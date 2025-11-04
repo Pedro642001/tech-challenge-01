@@ -10,7 +10,9 @@
 
 ### 💡 Sobre
 
-Projeto com objetivo educacional. Coleta pro raspagem de site fictício de vendas de livros para composição de base de dados para análise e predição.
+Projeto com objetivo educacional. Coleta por raspagem de site fictício de vendas de livros para composição de base de dados para análise e predição.
+
+Apresentação do projeto: https://youtu.be/VQ1BQtVAX38
 
 ### 📋 Pré-requisitos
 - [Pyenv - gerenciador de versões Python](https://github.com/pyenv/pyenv)
@@ -51,10 +53,10 @@ O comando abaixo é responsável por realizar a execução da aplicação em amb
 ```
 
 ### 📔 Documentação das rotas
-Localmente é possível realizar o acesso a documentação das rotas através do seguinte link:
+É possível realizar o acesso a documentação das rotas através do seguinte link:
 
 ```
-http://localhost:8000/docs
+https://tech-challenge-01-67cd153a4d07.herokuapp.com/docs
 ```
 
 ![Swagger API Documentation](doc/resources/images/swagger.png)
