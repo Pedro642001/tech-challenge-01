@@ -3,6 +3,7 @@ from typing import Annotated
 from fastapi import APIRouter, Depends
 from fastapi.security import OAuth2PasswordRequestForm
 
+from app.core.settings import settings
 from app.dtos.access_token import AccessTokenDto
 from app.dtos.refresh_token import RefreshTokenDto
 from app.services.auth_service import AuthService
@@ -16,10 +17,12 @@ async def login(
     authService: AuthService = Depends(),
 ):
     user = await authService.authenticate_user(form_data.username, form_data.password)
-
+    print(settings.ACCESS_TOKEN_EXPIRE_MINUTES)
     return AccessTokenDto(
         access_token=authService.create_access_token(data={"sub": str(user.id)}),
         refresh_token=authService.create_refresh_token(data={"sub": str(user.id)}),
+        token_type="Bearer",
+        expires_in=settings.ACCESS_TOKEN_EXPIRE_MINUTES,
     )
 
 
@@ -28,6 +31,7 @@ async def refresh_token(
     refresh_token_body: RefreshTokenDto,
     authService: AuthService = Depends(),
 ):
+    print(settings.ACCESS_TOKEN_EXPIRE_MINUTES)
     authService.validate_refresh_token(refresh_token_body.refresh_token)
 
     user_id = authService.validate_access_token(refresh_token_body.access_token)
@@ -35,4 +39,6 @@ async def refresh_token(
     return AccessTokenDto(
         access_token=authService.create_access_token(data={"sub": str(user_id)}),
         refresh_token=authService.create_refresh_token(data={"sub": str(user_id)}),
+        token_type="Bearer",
+        expires_in=settings.ACCESS_TOKEN_EXPIRE_MINUTES,
     )
