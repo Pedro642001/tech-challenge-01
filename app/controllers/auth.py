@@ -17,7 +17,7 @@ async def login(
     authService: AuthService = Depends(),
 ):
     user = await authService.authenticate_user(form_data.username, form_data.password)
-    print(settings.ACCESS_TOKEN_EXPIRE_MINUTES)
+
     return AccessTokenDto(
         access_token=authService.create_access_token(data={"sub": str(user.id)}),
         refresh_token=authService.create_refresh_token(data={"sub": str(user.id)}),
@@ -31,7 +31,6 @@ async def refresh_token(
     refresh_token_body: RefreshTokenDto,
     authService: AuthService = Depends(),
 ):
-    print(settings.ACCESS_TOKEN_EXPIRE_MINUTES)
     authService.validate_refresh_token(refresh_token_body.refresh_token)
 
     user_id = authService.validate_access_token(refresh_token_body.access_token)

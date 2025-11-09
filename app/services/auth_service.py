@@ -51,6 +51,7 @@ class AuthService:
         except Exception:
             raise HTTPException(detail="Não autorizado", status_code=401)
 
+    @staticmethod
     def validate_refresh_token(token: str) -> bool:
         try:
             payload = jwt.decode(token, settings.SECRET_KEY, algorithms=[settings.ALGORITHM])
